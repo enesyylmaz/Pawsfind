@@ -11,8 +11,8 @@ body {
 }
 
 button {
-  color: #000;
-  background: #fff;
+  color: #fff;
+  background: #000;
   border: 0;
   padding: 10px;
   margin: 5px 0;
@@ -52,8 +52,8 @@ button {
   transform: scale(1);
   animation: 400ms reveal forwards;
   position: absolute;
-  top: -70px;
-  left: -35px;
+  top: -50px;
+  left: -25px;
 }
 
 .map-container {
@@ -83,6 +83,7 @@ button {
   /* animation */
   transform: scale(0);
   animation: 400ms reveal forwards;
+  filter: blur(4px);
 }
 
 .highlighted button {
@@ -106,36 +107,4 @@ button {
   .left > div:not(.info) {
     padding-left: 0;
   }
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  width: 100vh;
-  color: black;
-  height: 80vh;
-}
-
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.popup-body {
 }

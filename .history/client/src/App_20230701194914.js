@@ -3,13 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
   const [mapBounds, setMapBounds] = useState({});
   const [highlighted, setHighlighted] = useState(null);
+
+  const handleHighlightClose = () => {
+    setHighlighted(null);
+  };
 
   /**
    * @description This function is called when the map is ready
@@ -24,7 +28,7 @@ const App = () => {
 
   // eslint-disable-next-line no-unused-vars
   const onMarkerClick = (e, { markerId, lat, lng }) => {
-    setHighlighted({ markerId, lat, lng });
+    setHighlighted(markerId);
   };
 
   const onMapChange = ({ bounds, zoom }) => {
@@ -43,6 +47,7 @@ const App = () => {
       bounds: [sw.lng(), sw.lat(), ne.lng(), ne.lat()],
       zoom,
     });
+    setHighlighted(null);
   };
 
   const [coordinateData, setCoordinateData] = useState([]);
@@ -83,27 +88,13 @@ const App = () => {
             />
           ))}
         </GoogleMap>
-      </div>
-      {highlighted && (
-        <div className="popup">
-          <div className="popup-content">
-            <div className="popup-header">
-              <h3>{highlighted.markerId}</h3>
-              <button
-                type="button"
-                onClick={() => setHighlighted(null)}
-                className="close-button"
-              >
-                X
-              </button>
-            </div>
-            <div className="popup-body">
-              <p>Latitude: {highlighted.lat}</p>
-              <p>Longitude: {highlighted.lng}</p>
-            </div>
-          </div>
+        <div className="highlighted">
+          {highlighted}{" "}
+          <button type="button" onClick={handleHighlightClose}>
+            X
+          </button>
         </div>
-      )}
+      </div>
     </main>
   );
 };
