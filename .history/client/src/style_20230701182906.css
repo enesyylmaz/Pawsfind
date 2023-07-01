@@ -49,11 +49,10 @@ button {
 }
 
 .marker {
-  transform: scale(1);
+  transform: scale(0);
   animation: 400ms reveal forwards;
-  position: absolute;
-  top: -50px;
-  left: -25px;
+  margin-top: -50px;
+  margin-left: -25px;
 }
 
 .map-container {
@@ -61,7 +60,7 @@ button {
   bottom: 02%;
   left: 50%;
   transform: translateX(-50%);
-  width: 85vw;
+  width: 855vw;
   height: 65vh;
 }
 

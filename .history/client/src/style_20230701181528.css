@@ -49,18 +49,14 @@ button {
 }
 
 .marker {
-  transform: scale(1);
+  transform: scale(0);
   animation: 400ms reveal forwards;
-  position: absolute;
-  top: -50px;
-  left: -25px;
 }
 
 .map-container {
   position: absolute;
   bottom: 02%;
   left: 50%;
-  transform: translateX(-50%);
   width: 85vw;
   height: 65vh;
 }

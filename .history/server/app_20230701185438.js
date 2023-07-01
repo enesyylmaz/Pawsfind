@@ -11,7 +11,7 @@ require("dotenv").config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://pawsfind.onrender.com", // Frontend URI (ReactJS)
+  origin: "http://localhost:3000", // Frontend URI (ReactJS)
 };
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -27,7 +27,7 @@ app.get("/api/maps/apiKey", (req, res) => {
 
 app.get("/api/pets", async (req, res) => {
   try {
-    const docs = await dbFunctions.getAllDocs();
+    const docs = await dbFunctions.getAllDocs(db);
     res.json(docs);
   } catch (err) {
     console.error("# Get Error", err);

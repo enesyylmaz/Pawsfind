@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const database = require("./database");
 const dbFunctions = require("./dbFunctions");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const app = express();
@@ -11,10 +10,25 @@ require("dotenv").config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://pawsfind.onrender.com", // Frontend URI (ReactJS)
+  origin: "http://localhost:3000", // Frontend URI (ReactJS)
 };
 app.use(express.json());
 app.use(cors(corsOptions));
+
+const opts = { useUnifiedTopology: true };
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI, opts)
+  .then(() => {
+    const PORT = process.env.PORT;
+    app.listen(PORT, () => {
+      console.log(`App is listening on PORT ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Routes
 app.get("/", (req, res) => {
@@ -34,33 +48,3 @@ app.get("/api/pets", async (req, res) => {
     res.status(500).send({ error: err.name + ", " + err.message });
   }
 });
-
-let server;
-let conn;
-
-(async () => {
-  try {
-    conn = await database();
-    await dbFunctions.getDb(conn);
-    const PORT = process.env.PORT;
-    server = app.listen(PORT, () => {
-      console.log(`App is listening on PORT ${PORT}`);
-    });
-  } catch (err) {
-    console.error("# Error:", err);
-    console.error("# Exiting the application.");
-    await closing();
-    process.exit(1);
-  }
-})();
-
-async function closing() {
-  console.log("# Closing resources...");
-  if (conn) {
-    await conn.close();
-    console.log("# Database connection closed.");
-  }
-  if (server) {
-    server.close(() => console.log("# Web server stopped."));
-  }
-}

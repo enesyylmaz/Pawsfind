@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const database = require("./database");
 const dbFunctions = require("./dbFunctions");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const app = express();
@@ -11,10 +10,25 @@ require("dotenv").config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://pawsfind.onrender.com", // Frontend URI (ReactJS)
+  origin: "http://localhost:3000", // Frontend URI (ReactJS)
 };
 app.use(express.json());
 app.use(cors(corsOptions));
+
+const opts = { useUnifiedTopology: true };
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI, opts)
+  .then(() => {
+    const PORT = process.env.PORT;
+    app.listen(PORT, () => {
+      console.log(`App is listening on PORT ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // Routes
 app.get("/", (req, res) => {
@@ -27,7 +41,7 @@ app.get("/api/maps/apiKey", (req, res) => {
 
 app.get("/api/pets", async (req, res) => {
   try {
-    const docs = await dbFunctions.getAllDocs();
+    const docs = await dbFunctions.getAllDocs(db);
     res.json(docs);
   } catch (err) {
     console.error("# Get Error", err);
@@ -40,11 +54,10 @@ let conn;
 
 (async () => {
   try {
-    conn = await database();
+    conn = mongoose.connection;
     await dbFunctions.getDb(conn);
-    const PORT = process.env.PORT;
-    server = app.listen(PORT, () => {
-      console.log(`App is listening on PORT ${PORT}`);
+    server = app.listen(port, () => {
+      console.log("# App server listening on port " + port);
     });
   } catch (err) {
     console.error("# Error:", err);

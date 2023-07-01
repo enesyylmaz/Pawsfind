@@ -40,4 +40,4 @@ redMarker.propTypes = {
   onClick: func,
 };
 
-export default redMarker;
+export default redMarkerarker;

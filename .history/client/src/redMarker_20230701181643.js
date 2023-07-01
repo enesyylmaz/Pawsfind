@@ -1,7 +1,7 @@
 import { func, number, oneOfType, string } from "prop-types";
 import markerPin from "./marker-pin.png";
 
-const redMarker = ({ className, lat, lng, markerId, onClick, ...props }) => {
+const Marker = ({ className, lat, lng, markerId, onClick, ...props }) => {
   return (
     <img
       className={className}
@@ -18,9 +18,9 @@ const redMarker = ({ className, lat, lng, markerId, onClick, ...props }) => {
   );
 };
 
-redMarker.defaultProps = {};
+Marker.defaultProps = {};
 
-redMarker.propTypes = {
+Marker.propTypes = {
   className: string,
   /**
    * The id of the marker.
@@ -40,4 +40,4 @@ redMarker.propTypes = {
   onClick: func,
 };
 
-export default redMarker;
+export default Marker;

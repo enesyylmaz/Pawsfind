@@ -48,7 +48,7 @@ button {
   background-color: #000;
 }
 
-.marker {
+.redMarker {
   transform: scale(1);
   animation: 400ms reveal forwards;
   position: absolute;

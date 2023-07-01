@@ -49,11 +49,6 @@ button {
 }
 
 .marker {
-  transform: scale(1);
-  animation: 400ms reveal forwards;
-  position: absolute;
-  top: -50px;
-  left: -25px;
 }
 
 .map-container {

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
+const URL = "http://localhost:4000";
 
 const coordinates = [
   [

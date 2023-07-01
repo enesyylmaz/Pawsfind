@@ -1,8 +1,9 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
 import Info from "./info";
-import Marker from "./marker";
+import redMarker from "./redMarker";
 import "./style.css";
+const URL = "http://localhost:4000";
 
 const coordinates = [
   [
@@ -103,7 +104,7 @@ const App = () => {
           onChange={onMapChange}
         >
           {currCoordinates.map(({ lat, lng, name }, index) => (
-            <Marker
+            <redMarker
               key={index}
               lat={lat}
               lng={lng}
