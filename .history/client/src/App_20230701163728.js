@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import React, { Component } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const containerStyle = {
   position: "absolute",

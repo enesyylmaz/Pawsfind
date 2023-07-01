@@ -2,21 +2,33 @@ import { useEffect, useState } from "react";
 import React, { Component } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+
+const URL = "http://localhost:4000";
 
 const containerStyle = {
-  position: "absolute",
-  bottom: "02%",
-  left: "50%",
-  transform: "translateX(-50%)",
-  width: "80vw",
-  height: "70vh",
+  width: "800px",
+  height: "600px",
 };
 
 const center = {
   lat: 37.7749, // Latitude of the desired center of the map
   lng: -122.4194, // Longitude of the desired center of the map
 };
+
+function initMap() {
+  const myLatLng = { lat: -25.363, lng: 131.044 };
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    center: myLatLng,
+  });
+
+  new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: "Hello World!",
+  });
+}
+window.initMap = initMap;
 
 function App() {
   const [message, setMessage] = useState("");
@@ -44,8 +56,11 @@ function App() {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} />
+    <LoadScript googleMapsApiKey={apiKey} onLoad={initMap}>
+      <div>
+        <h1>{message}</h1>
+        <div id="map" style={containerStyle}></div>
+      </div>
     </LoadScript>
   );
 }

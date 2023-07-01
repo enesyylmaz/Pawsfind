@@ -2,15 +2,11 @@ import { useEffect, useState } from "react";
 import React, { Component } from "react";
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const containerStyle = {
-  position: "absolute",
-  bottom: "02%",
-  left: "50%",
-  transform: "translateX(-50%)",
-  width: "80vw",
-  height: "70vh",
+  width: "800px",
+  height: "600px",
 };
 
 const center = {
@@ -21,19 +17,19 @@ const center = {
 function App() {
   const [message, setMessage] = useState("");
 
-  const [apiKey, setApiKey] = useState("");
+  const [geocodingData, setGeocodingData] = useState([]);
 
   useEffect(() => {
-    const fetchApiKey = async () => {
+    const fetchGeocodingData = async () => {
       try {
-        const response = await axios.get(`${URL}/api/maps/apiKey`);
-        setApiKey(response.data.apiKey);
+        const response = await axios.get(`${URL}/geocode`);
+        setGeocodingData(response.data);
       } catch (error) {
-        console.error("Error fetching API key:", error);
+        console.error("Error fetching geocoding data:", error);
       }
     };
 
-    fetchApiKey();
+    fetchGeocodingData();
   }, []);
 
   // Fetching message from backend on mount
@@ -44,9 +40,14 @@ function App() {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey={apiKey}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10} />
-    </LoadScript>
+    <div>
+      <h1>Geocoding Results</h1>
+      <ul>
+        {geocodingData.map((result) => (
+          <li key={result.place_id}>{result.formatted_address}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

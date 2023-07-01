@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const app = express();
 const cors = require("cors");
-const apiKey = "AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ";
+const apiKey = "YOUR_API_KEY";
 const gmAPI = new Client({});
 
 require("dotenv").config();
 
 // Middleware
 const corsOptions = {
-  origin: "https://pawsfind.onrender.com", // Frontend URI (ReactJS)
+  origin: "http://localhost:3000", // Frontend URI (ReactJS)
 };
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -33,6 +33,18 @@ app.get("/", (req, res) => {
   res.status(201).json({ message: "Connected to Backend!" });
 });
 
-app.get("/api/maps/apiKey", (req, res) => {
-  res.status(200).json({ apiKey });
+app.get("/geocode", async (req, res) => {
+  try {
+    const response = await gmAPI.geocode({
+      params: {
+        address: "1600 Amphitheatre Parkway, Mountain View, CA",
+        key: apiKey,
+      },
+    });
+    console.log(response.data.results);
+    res.status(200).json(response.data.results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Geocoding error" });
+  }
 });
