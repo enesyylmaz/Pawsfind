@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const coordinates = [
   [
@@ -20,7 +20,7 @@ const coordinates = [
     {
       lat: 37.7564438,
       lng: 29.0376811,
-      name: "Denizli",
+      name: "Rm",
     },
     {
       lat: 45.4628328,
@@ -43,11 +43,6 @@ const coordinates = [
       lat: 37.5023,
       lng: 15.0873,
       name: "Catania",
-    },
-    {
-      lat: 37.7564438,
-      lng: 29.0376811,
-      name: "Denizli",
     },
   ],
 ];
