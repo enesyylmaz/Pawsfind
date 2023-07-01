@@ -127,7 +127,7 @@ button {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  width: 60vw;
+  width: 100vw;
   color: black;
   height: 80vh;
 }

@@ -4,7 +4,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -23,6 +23,12 @@ const App = () => {
   const onGoogleApiLoaded = ({ map, maps }) => {
     mapRef.current = map;
     setMapReady(true);
+  };
+
+  const onMarkerClick = (e, { markerId, lat, lng }) => {
+    if (!mapDragged) {
+      setHighlighted({ markerId, lat, lng });
+    }
   };
 
   const onMapChange = ({ bounds, zoom }) => {
@@ -74,26 +80,20 @@ const App = () => {
       setMapDragged(false);
     };
 
-    const mapContainer = mapContainerRef.current;
+    const map = mapRef.current;
 
-    if (mapContainer) {
-      mapContainer.addEventListener("mousedown", handleMapDragStart);
-      mapContainer.addEventListener("mouseup", handleMapDragEnd);
+    if (map) {
+      google.maps.event.addListener(map, "dragstart", handleMapDragStart);
+      google.maps.event.addListener(map, "dragend", handleMapDragEnd);
     }
 
     return () => {
-      if (mapContainer) {
-        mapContainer.removeEventListener("mousedown", handleMapDragStart);
-        mapContainer.removeEventListener("mouseup", handleMapDragEnd);
+      if (map) {
+        google.maps.event.removeListener(map, "dragstart", handleMapDragStart);
+        google.maps.event.removeListener(map, "dragend", handleMapDragEnd);
       }
     };
-  }, [mapContainerRef]);
-
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    if (!mapDragged) {
-      setHighlighted({ markerId, lat, lng });
-    }
-  };
+  }, [google]);
 
   return (
     <main>

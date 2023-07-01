@@ -4,7 +4,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -23,6 +23,12 @@ const App = () => {
   const onGoogleApiLoaded = ({ map, maps }) => {
     mapRef.current = map;
     setMapReady(true);
+  };
+
+  const onMarkerClick = (e, { markerId, lat, lng }) => {
+    if (!mapDragged) {
+      setHighlighted({ markerId, lat, lng });
+    }
   };
 
   const onMapChange = ({ bounds, zoom }) => {
@@ -87,12 +93,21 @@ const App = () => {
         mapContainer.removeEventListener("mouseup", handleMapDragEnd);
       }
     };
-  }, [mapContainerRef]);
+  }, []);
 
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    if (!mapDragged) {
-      setHighlighted({ markerId, lat, lng });
-    }
+  const renderMarkers = () => {
+    return coordinateData.map(({ lat, lng, name }, index) => {
+      const position = { lat, lng };
+
+      return (
+        <Marker
+          key={index}
+          position={position}
+          label={name}
+          onClick={onMarkerClick}
+        />
+      );
+    });
   };
 
   return (
@@ -105,16 +120,21 @@ const App = () => {
           onGoogleApiLoaded={onGoogleApiLoaded}
           onChange={onMapChange}
         >
-          {coordinateData.map(({ lat, lng, name }, index) => (
-            <Marker
-              key={index}
-              lat={lat}
-              lng={lng}
-              markerId={name}
-              onClick={onMarkerClick}
-              className="marker"
-            />
-          ))}
+          <MarkerClusterer averageCenter enableRetinaIcons gridSize={60}>
+            {(clusterer) =>
+              coordinateData.map(({ lat, lng, name }, index) => (
+                <Marker
+                  key={index}
+                  lat={lat}
+                  lng={lng}
+                  markerId={name}
+                  onClick={onMarkerClick}
+                  className="marker"
+                  clusterer={clusterer}
+                />
+              ))
+            }
+          </MarkerClusterer>
         </GoogleMap>
       </div>
       {highlighted && (

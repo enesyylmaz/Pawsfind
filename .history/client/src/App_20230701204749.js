@@ -1,10 +1,9 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -23,6 +22,12 @@ const App = () => {
   const onGoogleApiLoaded = ({ map, maps }) => {
     mapRef.current = map;
     setMapReady(true);
+  };
+
+  const onMarkerClick = (e, { markerId, lat, lng }) => {
+    if (!mapDragged) {
+      setHighlighted({ markerId, lat, lng });
+    }
   };
 
   const onMapChange = ({ bounds, zoom }) => {
@@ -87,13 +92,7 @@ const App = () => {
         mapContainer.removeEventListener("mouseup", handleMapDragEnd);
       }
     };
-  }, [mapContainerRef]);
-
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    if (!mapDragged) {
-      setHighlighted({ markerId, lat, lng });
-    }
-  };
+  }, []);
 
   return (
     <main>
@@ -111,6 +110,7 @@ const App = () => {
               lat={lat}
               lng={lng}
               markerId={name}
+              clusterer={clusterer}
               onClick={onMarkerClick}
               className="marker"
             />

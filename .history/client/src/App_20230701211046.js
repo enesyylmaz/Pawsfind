@@ -4,7 +4,7 @@ import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);

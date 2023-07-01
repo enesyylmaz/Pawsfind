@@ -53,8 +53,8 @@ button {
   height: 80px;
   animation: 400ms reveal forwards;
   position: absolute;
-  top: -80px;
-  left: -40px;
+  top: -70px;
+  left: -35px;
 }
 
 .map-container {
@@ -127,7 +127,7 @@ button {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  width: 60vw;
+  width: 100vh;
   color: black;
   height: 80vh;
 }

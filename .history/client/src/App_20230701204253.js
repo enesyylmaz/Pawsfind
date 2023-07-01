@@ -1,14 +1,12 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
-  const mapContainerRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
   const [mapBounds, setMapBounds] = useState({});
   const [highlighted, setHighlighted] = useState(null);
@@ -25,7 +23,13 @@ const App = () => {
     setMapReady(true);
   };
 
-  const onMapChange = ({ bounds, zoom }) => {
+  const onMarkerClick = (e, { markerId, lat, lng }) => {
+    if (!mapDragged) {
+      setHighlighted({ markerId, lat, lng });
+    }
+  };
+
+  const onMapChange = ({ bounds, zoom, isDragging }) => {
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
     setMapBounds({
@@ -33,6 +37,7 @@ const App = () => {
       bounds: [sw.lng(), sw.lat(), ne.lng(), ne.lat()],
       zoom,
     });
+    setMapDragged(isDragging);
   };
 
   const [coordinateData, setCoordinateData] = useState([]);
@@ -76,28 +81,18 @@ const App = () => {
 
     const mapContainer = mapContainerRef.current;
 
-    if (mapContainer) {
-      mapContainer.addEventListener("mousedown", handleMapDragStart);
-      mapContainer.addEventListener("mouseup", handleMapDragEnd);
-    }
+    mapContainer.addEventListener("mousedown", handleMapDragStart);
+    mapContainer.addEventListener("mouseup", handleMapDragEnd);
 
     return () => {
-      if (mapContainer) {
-        mapContainer.removeEventListener("mousedown", handleMapDragStart);
-        mapContainer.removeEventListener("mouseup", handleMapDragEnd);
-      }
+      mapContainer.removeEventListener("mousedown", handleMapDragStart);
+      mapContainer.removeEventListener("mouseup", handleMapDragEnd);
     };
-  }, [mapContainerRef]);
-
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    if (!mapDragged) {
-      setHighlighted({ markerId, lat, lng });
-    }
-  };
+  }, []);
 
   return (
     <main>
-      <div className="map-container" ref={mapContainerRef}>
+      <div className="map-container">
         <GoogleMap
           apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
           defaultCenter={{ lat: 40.377, lng: 28.8832 }}

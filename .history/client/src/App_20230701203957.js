@@ -1,14 +1,12 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
-  const mapContainerRef = useRef(null);
   const [mapReady, setMapReady] = useState(false);
   const [mapBounds, setMapBounds] = useState({});
   const [highlighted, setHighlighted] = useState(null);
@@ -25,14 +23,30 @@ const App = () => {
     setMapReady(true);
   };
 
-  const onMapChange = ({ bounds, zoom }) => {
+  // eslint-disable-next-line no-unused-vars
+  const onMarkerClick = (e, { markerId, lat, lng }) => {
+    if (!mapDragged) {
+      setHighlighted({ markerId, lat, lng });
+    }
+  };
+
+  const onMapChange = ({ bounds, zoom, isDragging }) => {
     const ne = bounds.getNorthEast();
     const sw = bounds.getSouthWest();
+    /**
+     * useSupercluster accepts bounds in the form of [westLng, southLat, eastLng, northLat]
+     * const { clusters, supercluster } = useSupercluster({
+     *	points: points,
+     *	bounds: mapBounds.bounds,
+     *	zoom: mapBounds.zoom,
+     * })
+     */
     setMapBounds({
       ...mapBounds,
       bounds: [sw.lng(), sw.lat(), ne.lng(), ne.lat()],
       zoom,
     });
+    setMapDragged(isDragging);
   };
 
   const [coordinateData, setCoordinateData] = useState([]);
@@ -66,38 +80,30 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const handleMapDragStart = () => {
+    const mapDragStartHandler = () => {
       setMapDragged(true);
     };
 
-    const handleMapDragEnd = () => {
+    const mapDragEndHandler = () => {
       setMapDragged(false);
     };
 
-    const mapContainer = mapContainerRef.current;
-
-    if (mapContainer) {
-      mapContainer.addEventListener("mousedown", handleMapDragStart);
-      mapContainer.addEventListener("mouseup", handleMapDragEnd);
+    if (mapRef.current) {
+      mapRef.current.addEventListener("dragstart", mapDragStartHandler);
+      mapRef.current.addEventListener("dragend", mapDragEndHandler);
     }
 
     return () => {
-      if (mapContainer) {
-        mapContainer.removeEventListener("mousedown", handleMapDragStart);
-        mapContainer.removeEventListener("mouseup", handleMapDragEnd);
+      if (mapRef.current) {
+        mapRef.current.removeEventListener("dragstart", mapDragStartHandler);
+        mapRef.current.removeEventListener("dragend", mapDragEndHandler);
       }
     };
-  }, [mapContainerRef]);
-
-  const onMarkerClick = (e, { markerId, lat, lng }) => {
-    if (!mapDragged) {
-      setHighlighted({ markerId, lat, lng });
-    }
-  };
+  }, []);
 
   return (
     <main>
-      <div className="map-container" ref={mapContainerRef}>
+      <div className="map-container">
         <GoogleMap
           apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
           defaultCenter={{ lat: 40.377, lng: 28.8832 }}
