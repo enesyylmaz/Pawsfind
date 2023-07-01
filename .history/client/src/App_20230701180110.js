@@ -3,7 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+
+const containerStyle = {
+  position: "absolute",
+  bottom: "02%",
+  left: "50%",
+  transform: "translateX(-50%)",
+  width: "10vw",
+  height: "5vh",
+};
 
 const coordinates = [
   [
@@ -93,36 +101,43 @@ const App = () => {
     setCurrCoordinates(coordinates[usedCoordinates]);
   }, [usedCoordinates]);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <main>
-      <div className="map-container">
-        <GoogleMap
-          apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
-          defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
-          defaultZoom={4}
-          onGoogleApiLoaded={onGoogleApiLoaded}
-          onChange={onMapChange}
-        >
-          {currCoordinates.map(({ lat, lng, name }, index) => (
-            <Marker
-              key={index}
-              lat={lat}
-              lng={lng}
-              markerId={name}
-              onClick={onMarkerClick}
-              className="marker"
-            />
-          ))}
-        </GoogleMap>
-        {highlighted && (
-          <div className="highlighted">
-            {highlighted}{" "}
-            <button type="button" onClick={() => setHighlighted(null)}>
-              X
-            </button>
-          </div>
-        )}
-      </div>
+      <GoogleMap
+        apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
+        defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
+        defaultZoom={5}
+        mapMinHeight="600px"
+        mapContainerStyle={containerStyle}
+        onGoogleApiLoaded={onGoogleApiLoaded}
+        onChange={onMapChange}
+      >
+        {currCoordinates.map(({ lat, lng, name }, index) => (
+          <Marker
+            key={index}
+            lat={lat}
+            lng={lng}
+            markerId={name}
+            onClick={onMarkerClick}
+            className="marker"
+          />
+        ))}
+      </GoogleMap>
+      {highlighted && (
+        <div className="highlighted">
+          {highlighted}{" "}
+          <button type="button" onClick={() => setHighlighted(null)}>
+            X
+          </button>
+        </div>
+      )}
     </main>
   );
 };

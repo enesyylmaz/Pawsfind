@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
 
 const coordinates = [
   [

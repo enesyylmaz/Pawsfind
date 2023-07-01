@@ -1,9 +1,9 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
 import Info from "./info";
+import mapOptions from "./map-options.json";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
 
 const coordinates = [
   [
@@ -99,7 +99,8 @@ const App = () => {
         <GoogleMap
           apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
           defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
-          defaultZoom={4}
+          defaultZoom={5}
+          mapMinHeight="600px"
           onGoogleApiLoaded={onGoogleApiLoaded}
           onChange={onMapChange}
         >
@@ -114,14 +115,6 @@ const App = () => {
             />
           ))}
         </GoogleMap>
-        {highlighted && (
-          <div className="highlighted">
-            {highlighted}{" "}
-            <button type="button" onClick={() => setHighlighted(null)}>
-              X
-            </button>
-          </div>
-        )}
       </div>
     </main>
   );

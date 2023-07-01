@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import Info from "./info";
 import Marker from "./marker";
 import "./style.css";
-const URL = "https://mern-deploy-rr5x.onrender.com";
 
 const coordinates = [
   [
@@ -95,11 +94,21 @@ const App = () => {
 
   return (
     <main>
-      <div className="map-container">
+      <div
+        style={{
+          position: "absolute",
+          bottom: "10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "60vw",
+          height: "35vh",
+        }}
+      >
         <GoogleMap
           apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
           defaultCenter={{ lat: 45.4046987, lng: 12.2472504 }}
-          defaultZoom={4}
+          defaultZoom={5}
+          mapMinHeight="600px"
           onGoogleApiLoaded={onGoogleApiLoaded}
           onChange={onMapChange}
         >
