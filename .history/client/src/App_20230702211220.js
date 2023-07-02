@@ -7,7 +7,7 @@ import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -257,17 +257,14 @@ const App = () => {
   return (
     <main>
       <div className="header">
-        <div className="logo-container">
+        <div>
           <img src={logo} alt="Logo" className="logo-image" />
         </div>
-        <div className="profile-container">
+        <div>
           {loading ? (
             <p>Loading...</p>
           ) : profile ? (
-            <div>
-              <p style={{ color: "black", fontSize: "20px" }}>
-                welcome, {profile.email.split("@")[0]}
-              </p>
+            <div className="profile-container">
               <button onClick={logOut} className="log_out_button">
                 Log out
               </button>
@@ -277,7 +274,7 @@ const App = () => {
             </div>
           ) : (
             <button className="sign_button" onClick={() => login()}>
-              Sign in with Google 🚀
+              Sign in with Google 🚀{" "}
             </button>
           )}
         </div>

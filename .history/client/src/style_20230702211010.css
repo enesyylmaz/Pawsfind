@@ -21,28 +21,17 @@ button {
 }
 
 .header {
-  position: relative;
-  text-align: center;
-}
-
-.logo-container {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .logo-image {
-  height: 12vh;
-}
-
-.profile-container {
-  justify-content: center;
-  align-items: center;
-}
-
-.log_out_button,
-.add_button,
-.sign_button {
-  margin: 0 5px; /* Adjust the margin as needed */
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 18vh;
 }
 
 .sign_button {
@@ -123,6 +112,44 @@ button {
   width: 55vw;
   height: 60vh;
   border: 4px solid purple;
+}
+
+.profile-container {
+  position: absolute;
+  top: 3vh;
+  right: 5%;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  width: fit-content;
+  height: 20vw;
+}
+
+.profile h3 {
+  color: black;
+  margin-top: 0;
+}
+
+.profile p {
+  color: black;
+}
+
+.profile img {
+  margin-right: 10px;
+}
+
+.profile div {
+  position: relative;
+  top: 0;
+  left: 100px;
+  height: 96px;
+}
+
+.profile button {
+  position: static;
 }
 
 .highlighted {

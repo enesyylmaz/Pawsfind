@@ -22,27 +22,14 @@ button {
 
 .header {
   position: relative;
-  text-align: center;
-}
-
-.logo-container {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
 }
 
 .logo-image {
-  height: 12vh;
-}
-
-.profile-container {
-  justify-content: center;
-  align-items: center;
-}
-
-.log_out_button,
-.add_button,
-.sign_button {
-  margin: 0 5px; /* Adjust the margin as needed */
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 18vh;
 }
 
 .sign_button {
@@ -123,6 +110,50 @@ button {
   width: 55vw;
   height: 60vh;
   border: 4px solid purple;
+}
+
+.profile-container {
+  position: relative;
+  height: 50vh;
+  margin-right: 2vw;
+  align-items: center;
+}
+
+.profile {
+  position: absolute;
+  top: 2%;
+  right: 05%;
+  width: fit-content;
+  height: 20vw;
+  border-width: 2px;
+  border-color: #000;
+}
+
+.profile h3 {
+  color: black;
+  margin-top: 0px;
+}
+
+.profile p {
+  color: black;
+}
+
+.profile img {
+  margin-right: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.profile div {
+  position: relative;
+  top: 0px;
+  left: 100px;
+  height: 96px;
+}
+
+.profile button {
+  position: static;
 }
 
 .highlighted {

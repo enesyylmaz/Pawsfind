@@ -21,28 +21,17 @@ button {
 }
 
 .header {
-  position: relative;
-  text-align: center;
-}
-
-.logo-container {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .logo-image {
-  height: 12vh;
-}
-
-.profile-container {
-  justify-content: center;
-  align-items: center;
-}
-
-.log_out_button,
-.add_button,
-.sign_button {
-  margin: 0 5px; /* Adjust the margin as needed */
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 15vh;
 }
 
 .sign_button {

@@ -26,15 +26,15 @@ button {
 }
 
 .logo-container {
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  margin-bottom: 10px;
 }
 
 .logo-image {
-  height: 12vh;
+  height: 100px; /* Adjust the height as needed */
 }
 
 .profile-container {
+  display: flex;
   justify-content: center;
   align-items: center;
 }

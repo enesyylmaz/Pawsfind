@@ -42,6 +42,7 @@ button {
 .log_out_button,
 .add_button,
 .sign_button {
+  position: absolute;
   margin: 0 5px; /* Adjust the margin as needed */
 }
 
