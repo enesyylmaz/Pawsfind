@@ -1,6 +1,6 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { MarkerClusterer } from "@react-google-maps/markerclusterer";
 import Info from "./info";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
@@ -167,8 +167,8 @@ const App = () => {
               <button onClick={logOut}>Log out</button>
             </div>
           </div>
-        ) : (
-          <button onClick={() => login()}>Sign in with Google 🚀 </button>
+        ) : user ? null : (
+          <button onClick={() => login()}>Sign in with Google 🚀</button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>
@@ -189,6 +189,17 @@ const App = () => {
               className="marker"
             />
           ))}
+          <MarkerClusterer>
+            {(clusterer) =>
+              markers.map((marker) => (
+                <Marker
+                  key={marker.id}
+                  position={{ lat: marker.lat, lng: marker.lng }}
+                  clusterer={clusterer}
+                />
+              ))
+            }
+          </MarkerClusterer>
         </GoogleMap>
       </div>
       {highlighted && (

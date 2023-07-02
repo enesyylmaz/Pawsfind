@@ -6,7 +6,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -155,20 +155,18 @@ const App = () => {
         <h2>React Google Login</h2>
         <br />
         <br />
-        {loading ? (
-          <p>Loading...</p>
-        ) : profile ? (
-          <div style={{ position: "relative", height: "90vh" }}>
-            <div style={{ position: "absolute", bottom: "0", right: "30" }}>
-              <img src={profile.picture} alt="user image" />
-              <h3 style={{ color: "black" }}>User Logged in</h3>
-              <p style={{ color: "black" }}>Name: {profile.name}</p>
-              <p style={{ color: "black" }}>Email Address: {profile.email}</p>
-              <button onClick={logOut}>Log out</button>
-            </div>
+        {profile !== null && Object.keys(profile).length > 0 ? (
+          <div>
+            <img src={profile.picture} alt="user image" />
+            <h3>User Logged in</h3>
+            <p>Name: {profile.name}</p>
+            <p>Email Address: {profile.email}</p>
+            <br />
+            <br />
+            <button onClick={logOut}>Log out</button>
           </div>
         ) : (
-          <button onClick={() => login()}>Sign in with Google 🚀 </button>
+          <button onClick={() => login()}>Sign in with Google 🚀</button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>
