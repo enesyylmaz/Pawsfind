@@ -6,7 +6,9 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
+
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLEAPIKEY;
 
 const App = () => {
   const mapRef = useRef(null);
@@ -167,8 +169,8 @@ const App = () => {
               <button onClick={logOut}>Log out</button>
             </div>
           </div>
-        ) : user ? null : (
-          <button onClick={() => login()}>Sign in with Google 🚀</button>
+        ) : (
+          <button onClick={() => login()}>Sign in with Google 🚀 </button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>

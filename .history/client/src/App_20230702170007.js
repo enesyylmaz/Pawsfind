@@ -6,7 +6,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -156,7 +156,7 @@ const App = () => {
         <br />
         <br />
         {loading ? (
-          <p>Loading...</p>
+          <p>Loading...</p> // Display a loading message while fetching profile data
         ) : profile ? (
           <div style={{ position: "relative", height: "90vh" }}>
             <div style={{ position: "absolute", bottom: "0", right: "30" }}>
@@ -167,8 +167,8 @@ const App = () => {
               <button onClick={logOut}>Log out</button>
             </div>
           </div>
-        ) : user ? null : (
-          <button onClick={() => login()}>Sign in with Google 🚀</button>
+        ) : (
+          <button onClick={() => login()}>Sign in with Google 🚀 </button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>

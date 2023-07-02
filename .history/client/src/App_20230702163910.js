@@ -6,7 +6,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -18,7 +18,6 @@ const App = () => {
 
   const [user, setUser] = useState([]);
   const [profile, setProfile] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   /**
    * @description This function is called when the map is ready
@@ -106,6 +105,10 @@ const App = () => {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    const storedProfile = localStorage.getItem("profile");
+    if (storedProfile) {
+      setProfile(JSON.parse(storedProfile));
+    }
   }, []);
 
   useEffect(() => {
@@ -122,14 +125,11 @@ const App = () => {
         )
         .then((res) => {
           setProfile(res.data);
-          setLoading(false);
-          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("profile", JSON.stringify(res.data));
         })
         .catch((err) => console.log(err));
     } else {
-      setProfile(null);
-      setLoading(false);
-      localStorage.removeItem("user");
+      localStorage.removeItem("profile");
     }
   }, [user]);
 
@@ -144,8 +144,8 @@ const App = () => {
   const logOut = () => {
     setUser(null);
     setProfile(null);
-    setLoading(true);
     localStorage.removeItem("user");
+    localStorage.removeItem("profile");
     googleLogout();
   };
 
@@ -155,20 +155,18 @@ const App = () => {
         <h2>React Google Login</h2>
         <br />
         <br />
-        {loading ? (
-          <p>Loading...</p>
-        ) : profile ? (
-          <div style={{ position: "relative", height: "90vh" }}>
-            <div style={{ position: "absolute", bottom: "0", right: "30" }}>
-              <img src={profile.picture} alt="user image" />
-              <h3 style={{ color: "black" }}>User Logged in</h3>
-              <p style={{ color: "black" }}>Name: {profile.name}</p>
-              <p style={{ color: "black" }}>Email Address: {profile.email}</p>
-              <button onClick={logOut}>Log out</button>
-            </div>
+        {profile ? (
+          <div>
+            <img src={profile.picture} alt="user image" />
+            <h3>User Logged in</h3>
+            <p>Name: {profile.name}</p>
+            <p>Email Address: {profile.email}</p>
+            <br />
+            <br />
+            <button onClick={logOut}>Log out</button>
           </div>
-        ) : user ? null : (
-          <button onClick={() => login()}>Sign in with Google 🚀</button>
+        ) : (
+          <button onClick={() => login()}>Sign in with Google 🚀 </button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>

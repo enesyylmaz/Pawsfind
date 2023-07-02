@@ -10,7 +10,7 @@ root.render(
   <React.StrictMode>
     <GoogleOAuthProvider
       clientId="138088655548-l1kq171rr4m9so196on55i2ruc2nlhku.apps.googleusercontent.com"
-      redirectUri="https://pawsfind.onrender.com" // Replace with your redirect URI
+      redirectUri="http://localhost:3000" // Replace with your redirect URI
       scopes={["email", "profile"]}
     >
       <App />

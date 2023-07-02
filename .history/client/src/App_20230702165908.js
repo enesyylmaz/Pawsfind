@@ -6,7 +6,7 @@ import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -128,7 +128,6 @@ const App = () => {
         .catch((err) => console.log(err));
     } else {
       setProfile(null);
-      setLoading(false);
       localStorage.removeItem("user");
     }
   }, [user]);
@@ -144,7 +143,6 @@ const App = () => {
   const logOut = () => {
     setUser(null);
     setProfile(null);
-    setLoading(true);
     localStorage.removeItem("user");
     googleLogout();
   };
@@ -155,11 +153,9 @@ const App = () => {
         <h2>React Google Login</h2>
         <br />
         <br />
-        {loading ? (
-          <p>Loading...</p>
-        ) : profile ? (
-          <div style={{ position: "relative", height: "90vh" }}>
-            <div style={{ position: "absolute", bottom: "0", right: "30" }}>
+        {profile ? (
+          <div style={{ position: "relative", height: "15vh" }}>
+            <div style={{ position: "absolute", bottom: "0", right: "0" }}>
               <img src={profile.picture} alt="user image" />
               <h3 style={{ color: "black" }}>User Logged in</h3>
               <p style={{ color: "black" }}>Name: {profile.name}</p>
@@ -167,8 +163,8 @@ const App = () => {
               <button onClick={logOut}>Log out</button>
             </div>
           </div>
-        ) : user ? null : (
-          <button onClick={() => login()}>Sign in with Google 🚀</button>
+        ) : (
+          <button onClick={() => login()}>Sign in with Google 🚀 </button>
         )}
       </div>
       <div className="map-container" ref={mapContainerRef}>
