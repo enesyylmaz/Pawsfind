@@ -7,7 +7,7 @@ import Marker from "./marker";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -331,30 +331,9 @@ const App = () => {
               <button onClick={logOut} className="log_out_button">
                 Log out
               </button>
-
               <button className="add_button" onClick={openPopup}>
                 Create Report
               </button>
-              <select
-                name="value"
-                className="select-box"
-                value={display}
-                onChange={handleDisplay}
-              >
-                <option value="all">All</option>
-                <option value="variant2">Found</option>
-                <option value="variant1">Lost</option>
-              </select>
-              <div className="toggle-button-container">
-                <button
-                  onClick={handleShowMyEntries}
-                  className={`toggle-button ${showMyEntries ? "active" : ""}`}
-                >
-                  <span className="toggle-text">
-                    {showMyEntries ? "Hide My Entries" : "Show My Entries"}
-                  </span>
-                </button>
-              </div>
             </div>
           ) : (
             <button className="sign_button" onClick={() => login()}>
@@ -362,6 +341,26 @@ const App = () => {
             </button>
           )}
         </div>
+      </div>
+      <select
+        name="value"
+        className="select-box"
+        value={display}
+        onChange={handleDisplay}
+      >
+        <option value="all">All</option>
+        <option value="variant2">Found</option>
+        <option value="variant1">Lost</option>
+      </select>
+      <div className="toggle-button-container">
+        <button
+          onClick={handleShowMyEntries}
+          className={`toggle-button ${showMyEntries ? "active" : ""}`}
+        >
+          <span className="toggle-text">
+            {showMyEntries ? "Hide My Entries" : "Show My Entries"}
+          </span>
+        </button>
       </div>
 
       <div className="map-container" ref={mapContainerRef}>
