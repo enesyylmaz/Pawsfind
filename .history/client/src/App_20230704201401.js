@@ -9,7 +9,7 @@ import "./TagsStyle.css";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -496,6 +496,19 @@ const App = () => {
     }
   );
 
+  const setGoogleMapRef = (map, maps, markers) => {
+    this.googleMapRef = map;
+    this.googleRef = maps;
+    const markerCluster = new MarkerClusterer(
+      this.googleMapRef,
+      this.state.markers,
+      {
+        gridSize: 10,
+        minimumClusterSize: 2,
+      }
+    );
+  };
+
   return (
     <main>
       <div className="header">
@@ -675,7 +688,9 @@ const App = () => {
                       apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
                       defaultCenter={{ lat: 38.315463, lng: 26.638829 }}
                       defaultZoom={9}
-                      onGoogleApiLoaded={onGoogleApiLoaded}
+                      onGoogleApiLoaded={({ map, maps }) =>
+                        this.setGoogleMapRef(mapRef, maps, renderedMarkers)
+                      }
                       onClick={handleMapClick}
                     >
                       {latitude && longitude && (

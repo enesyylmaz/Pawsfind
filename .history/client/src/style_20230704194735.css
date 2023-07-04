@@ -24,12 +24,12 @@ button {
   text-align: center;
 }
 
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+.map-container {
+  position: relative;
+  left: 50%;
+  margin-top: 02%;
+  margin-bottom: 02%;
+  transform: translateX(-50%);
 }
 
 .logo-image {

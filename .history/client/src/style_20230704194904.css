@@ -25,9 +25,11 @@ button {
 }
 
 .logo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
   margin-top: 1vh;
   margin-bottom: 1vh;
 }

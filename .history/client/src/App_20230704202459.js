@@ -9,7 +9,7 @@ import "./TagsStyle.css";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -78,6 +78,8 @@ const App = () => {
     setMapReady(true);
     map.addListener("click", handleMapClick);
   };
+
+  const onLoad = console.log("totally on loading rn");
 
   const storeUserInLocalStorage = (user) => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -587,6 +589,7 @@ const App = () => {
           defaultCenter={{ lat: 38.321665129259344, lng: 26.64079449175925 }}
           defaultZoom={14}
           onGoogleApiLoaded={onGoogleApiLoaded}
+          onLoad={onLoad}
           onChange={onMapChange}
         >
           {renderedMarkers}

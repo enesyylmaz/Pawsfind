@@ -1,6 +1,9 @@
 import GoogleMap from "google-maps-react-markers";
 import { useEffect, useRef, useState } from "react";
-import { MarkerClusterer } from "@react-google-maps/api";
+import {
+  MarkerClusterer,
+  SuperClusterAlgorithm,
+} from "@googlemaps/markerclusterer";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
@@ -9,7 +12,7 @@ import "./TagsStyle.css";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -576,7 +579,7 @@ const App = () => {
             onChange={(e) => handleTagInputChangeSearch(e.target.value)}
             type="text"
             className="tag-field"
-            placeholder="Enter tags"
+            placeholder="Enter tags you want to search by pressing enter"
           />
         </div>
       </div>
@@ -584,7 +587,7 @@ const App = () => {
       <div className="map-container" ref={mapRef}>
         <GoogleMap
           apiKey="AIzaSyCpSbd_GTUT5hRGzW-BBK6mXYX_quZ6ZOQ"
-          defaultCenter={{ lat: 38.321665129259344, lng: 26.64079449175925 }}
+          defaultCenter={{ lat: 38.315463, lng: 26.638829 }}
           defaultZoom={14}
           onGoogleApiLoaded={onGoogleApiLoaded}
           onChange={onMapChange}

@@ -9,7 +9,7 @@ import "./TagsStyle.css";
 import "./style.css";
 import axios from "axios";
 import logo from "./pawsfind_logo.png";
-const URL = "https://mern-deploy-rr5x.onrender.com";
+const URL = "http://localhost:4000";
 
 const App = () => {
   const mapRef = useRef(null);
@@ -495,6 +495,22 @@ const App = () => {
       );
     }
   );
+
+  setGoogleMapRef (map, maps) {
+    this.googleMapRef = map
+    this.googleRef = maps
+   let locations = [
+        {lat: -31.563910, lng: 147.154312},
+        {lat: -33.718234, lng: 150.363181},
+        {lat: -33.727111, lng: 150.371124}]
+    let markers = locations && locations.map((location) => {
+      return new this.googleRef.Marker({position: location.position})
+    })
+    let markerCluster = new MarkerClusterer(map, markers, {
+      gridSize: 10,
+      minimumClusterSize: 2
+    })
+  }
 
   return (
     <main>

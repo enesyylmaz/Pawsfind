@@ -123,7 +123,7 @@ button {
   margin-top: 02%;
   margin-bottom: 02%;
   transform: translateX(-50%);
-  width: 70vw;
+  width: 50vw;
   height: 45vh;
 }
 
@@ -182,7 +182,6 @@ button {
   .select-box {
     width: 24vw;
     display: block;
-    min-width: 108px;
   }
 }
 
@@ -358,6 +357,7 @@ button {
   display: flex;
   justify-content: center;
   margin-top: 1vh;
+  min-width: fit-content;
 }
 
 .toggle-button {
@@ -366,7 +366,6 @@ button {
   border-radius: 20px;
   transition: background-color 0.3s;
   text-align: center;
-  min-width: fit-content;
 }
 
 .toggle-button.active {
@@ -420,11 +419,6 @@ button {
   color: black;
   margin-left: auto; /* Horizontally center the element */
   margin-right: auto; /* Horizontally center the element */
-  min-width: 300px;
-}
-
-.tag-field input {
-  min-width: 280px;
 }
 
 .tag-field-container {

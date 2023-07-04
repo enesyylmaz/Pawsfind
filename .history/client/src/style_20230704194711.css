@@ -25,9 +25,9 @@ button {
 }
 
 .logo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   margin-top: 1vh;
   margin-bottom: 1vh;
 }
