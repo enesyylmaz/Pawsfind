@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.3.1",
+    "@googlemaps/markerclustererplus": "^1.2.10",
     "@react-google-maps/api": "^2.18.1",
     "@react-oauth/google": "^0.11.0",
     "@testing-library/jest-dom": "^5.16.5",
