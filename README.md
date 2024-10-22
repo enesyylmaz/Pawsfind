@@ -15,8 +15,11 @@ Try it out on https://pawsfind.onrender.com/
 
 ![Main Menu](samples/map-sample.png)
 
-### Report UI
+### "Create Report" Page
 
-![Report UI](samples/report-sample.png)
-![Report UI](samples/report-sample-2.png)
+!["Create Report" Page](samples/report-sample.png)
+
+### Report Page
+
+![Report Page](samples/report-sample-2.png)
 
